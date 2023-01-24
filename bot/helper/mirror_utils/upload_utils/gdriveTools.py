@@ -390,11 +390,11 @@ class GoogleDriveHelper:
                     msg += f'\n<b>├🗃️ SubFolders: </b>{self.__total_folders}'
                     msg += f'\n<b>├🗂️ Files: </b>{self.__total_files}'
                 else:
-                    msg += f'<b>╭ Name: </b><code>{f_name}</code>'
-                    msg += f'\n<b>├ Size: </b>{get_readable_file_size(self.transferred_size)}'
-                    msg += f'\n<b>├ Type: </b>Folder'
-                    msg += f'\n<b>├ SubFolders: </b>{self.__total_folders}'
-                    msg += f'\n<b>├ Files: </b>{self.__total_files}'
+                    msg += f'<b>╭ • Name: </b><code>{f_name}</code>'
+                    msg += f'\n<b>├ • Size: </b>{get_readable_file_size(self.transferred_size)}'
+                    msg += f'\n<b>├ • Type: </b>Folder'
+                    msg += f'\n<b>├ • SubFolders: </b>{self.__total_folders}'
+                    msg += f'\n<b>├ • Files: </b>{self.__total_files}'
                 buttons = ButtonMaker()
                 durl = short_url(durl, self.user_id)
                 buttons.buildbutton("☁️ Drive Link", durl)
@@ -408,7 +408,7 @@ class GoogleDriveHelper:
                 if config_dict['EMOJI_THEME']:
                     msg += f'<b>╭🗂️ Name: </b><code>{file.get("name")}</code>'
                 else:
-                    msg += f'<b>╭ Name: </b><code>{file.get("name")}</code>'
+                    msg += f'<b>╭ • Name: </b><code>{file.get("name")}</code>'
                 durl = self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))
                 buttons = ButtonMaker()
                 durl = short_url(durl, self.user_id)
@@ -419,8 +419,8 @@ class GoogleDriveHelper:
                     msg += f'\n<b>├📦 Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
                     msg += f'\n<b>├♻ Type: </b>{mime_type}'
                 else:
-                    msg += f'\n<b>├ Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
-                    msg += f'\n<b>├ Type: </b>{mime_type}'
+                    msg += f'\n<b>├ • Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
+                    msg += f'\n<b>├ • Type: </b>{mime_type}'
                 if INDEX_URL := INDEXURL:
                     url_path = rquote(f'{file.get("name")}', safe='')
                     url = f'{INDEX_URL}/{url_path}'
@@ -607,7 +607,7 @@ class GoogleDriveHelper:
 
             if drive_name:
                 if tegr:
-                    msg += f"╾──────────────────────╼<br><b>{drive_name}</b><br>╾──────────────────────╼<br>"
+                    msg += f"❏ <b>Drive Path: {drive_name}</b><br><br>"
                 elif html:
                     msg += '<span class="container center rfontsize">' \
                           f'<b>{drive_name}</b></span>'
@@ -653,7 +653,7 @@ class GoogleDriveHelper:
                 else:
                     furl = f"https://drive.google.com/uc?id={file.get('id')}&export=download"
                     if tegr:
-                        msg += f"📄 <code>{file.get('name')}<br>({get_readable_file_size(int(file.get('size', 0)))})</code><br>"
+                        msg += f"📁 <b>{file.get('name')}<br>📦 ({get_readable_file_size(int(file.get('size', 0)))})</b><br>"
                         msg += f"<b><a href='{furl}'>Drive Link</a></b>"
                     elif html:
                         msg += '<span class="container start rfontsize">' \
@@ -763,15 +763,15 @@ class GoogleDriveHelper:
                     msg += f'\n<b>├♻ Type: </b>Folder'
                     msg += f'\n<b>├🗃️ SubFolders: </b>{self.__total_folders}'
                 else:
-                    msg += f'<b>╭ Name: </b><code>{name}</code>'
-                    msg += f'\n<b>├ Size: </b>{get_readable_file_size(self.__total_bytes)}'
-                    msg += f'\n<b>├ Type: </b>Folder'
-                    msg += f'\n<b>├ SubFolders: </b>{self.__total_folders}'
+                    msg += f'<b>╭ • Name: </b><code>{name}</code>'
+                    msg += f'\n<b>├ • Size: </b>{get_readable_file_size(self.__total_bytes)}'
+                    msg += f'\n<b>├ • Type: </b>Folder'
+                    msg += f'\n<b>├ • SubFolders: </b>{self.__total_folders}'
             else:
                 if config_dict['EMOJI_THEME']:
                     msg += f'<b>╭🗂️ Name: </b><code>{name}</code>'
                 else:
-                    msg += f'<b>╭ Name: </b><code>{name}</code>'
+                    msg += f'<b>╭ • Name: </b><code>{name}</code>'
                 if mime_type is None:
                     mime_type = 'File'
                 self.__total_files += 1
@@ -780,12 +780,12 @@ class GoogleDriveHelper:
                     msg += f'\n<b>├📦 Size: </b>{get_readable_file_size(self.__total_bytes)}'
                     msg += f'\n<b>├♻ Type: </b>{mime_type}'
                 else:
-                    msg += f'\n<b>├ Size: </b>{get_readable_file_size(self.__total_bytes)}'
-                    msg += f'\n<b>├ Type: </b>{mime_type}'
+                    msg += f'\n<b>├ • Size: </b>{get_readable_file_size(self.__total_bytes)}'
+                    msg += f'\n<b>├ • Type: </b>{mime_type}'
             if config_dict['EMOJI_THEME']:
                 msg += f'\n<b>├🗂️ Files: </b>{self.__total_files}'
             else:
-                msg += f'\n<b>├ Files: </b>{self.__total_files}'
+                msg += f'\n<b>├ • Files: </b>{self.__total_files}'
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total Attempts: {err.last_attempt.attempt_number}")
