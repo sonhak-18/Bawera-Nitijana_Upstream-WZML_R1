@@ -17,8 +17,8 @@ def mirror_status(update, context):
         currentTime = get_readable_time(time() - botStartTime)
         free = get_readable_file_size(disk_usage(config_dict['DOWNLOAD_DIR']).free)
         message = 'No Active Downloads !\n___________________________'
-        message += f"\n<b>CPU:</b> {cpu_percent()}% | <b>FREE:</b> {free}" \
-                   f"\n<b>RAM:</b> {virtual_memory().percent}% | <b>UPTIME:</b> {currentTime}"
+        message += f"\n<b>• CPU:</b> {cpu_percent()}% | <b>• FREE:</b> {free}" \
+                   f"\n<b>• RAM:</b> {virtual_memory().percent}% | <b>• UPTIME:</b> {currentTime}"
         reply_message = sendMessage(message, context.bot, update.message)
         Thread(target=auto_delete_message, args=(context.bot, update.message, reply_message)).start()
     else:
